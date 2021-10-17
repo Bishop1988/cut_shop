@@ -9,14 +9,25 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
-    props: true
+    props: true,
   },
   {
     path: "/materials/:slug",
     name: "materialsDetails",
     props: true,
     component: () =>
-      import(/* webpackChunkName: "MaterialsDetails" */ "../views/MaterialsDetails.vue"),
+      import(
+        /* webpackChunkName: "MaterialsDetails" */ "../views/MaterialsDetails.vue"
+      ),
+  },
+  {
+    path: "/materials/:slug/:materialTypeSlug/orders",
+    name: "materialOrder",
+    props: true,
+    component: () =>
+      import(
+        /* webpackChunkName: "MaterialOrder" */ "../views/MaterialOrder.vue"
+      ),
   },
 ];
 

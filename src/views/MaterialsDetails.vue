@@ -1,28 +1,36 @@
 <template>
-<div>
-  <section class="material">
-    <h1>{{ material.name }}</h1>
-    <div class="material-details">
-      <img :src="require(`@/assets/${material.image}`)" :alt="material.name" />
-    </div>
-  </section>
-  <section class="material-types">
-    <div class="cards">
-      <div v-for="type in material.types" 
-      :key="type.slug"
-      class="card">
-        <span class="card__text">
-          {{ type.name }}
-        </span>
-        <img :src="require(`@/assets/${type.image}`)" :alt="type.name">
+  <div>
+    <section class="material">
+      <h1>{{ material.name }}</h1>
+      <div class="material-details">
+        <img
+          :src="require(`@/assets/${material.image}`)"
+          :alt="material.name"
+        />
       </div>
-    </div>
-  </section>
-</div>
+    </section>
+    <section class="material-types">
+      <div class="cards">
+        <div v-for="type in material.types" :key="type.slug" class="card">
+          <router-link
+            :to="{
+              name: 'materialOrder',
+              params: { materialTypeSlug: type.slug },
+            }"
+          >
+            <span class="card__text">
+              {{ type.name }}
+            </span>
+            <img :src="require(`@/assets/${type.image}`)" :alt="type.name" />
+          </router-link>
+        </div>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
-import store from "../store"
+import store from "../store";
 export default {
   data() {
     return {};
@@ -30,16 +38,14 @@ export default {
   props: {
     slug: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
-      material() {
-          return store.materials.find(
-              material => material.slug === this.slug
-          )
-      }
-  }
+    material() {
+      return store.materials.find((material) => material.slug === this.slug);
+    },
+  },
 };
 </script>
 
@@ -65,7 +71,6 @@ p {
 .cards {
   display: flex;
   justify-content: center;
-  
 }
 .cards img {
   max-height: 200px;
